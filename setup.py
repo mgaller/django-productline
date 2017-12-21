@@ -34,9 +34,8 @@ setup(
         'Operating System :: OS Independent'
     ],
     install_requires=[
-        'Django',
+        'Django>=2.0.0',
         'decorator',
-        'django-overextends',
         'featuremonkey>=0.2.2',
         'ape>=0.2.0',
     ],
