@@ -1,8 +1,4 @@
-# coding: utf-8
 from __future__ import unicode_literals
-
-import django
-from django_productline import compare_version
 
 
 def refine_INSTALLED_APPS(original):
@@ -15,7 +11,7 @@ refine_USE_I18N = True
 refine_USE_L10N = True
 
 
-def refine_MIDDLEWARE_CLASSES(original):
+def refine_MIDDLEWARE(original):
     """
     Django docs say that the LocaleMiddleware should come after the SessionMiddleware.
     Here, we make sure that the SessionMiddleware is enabled and then place the
