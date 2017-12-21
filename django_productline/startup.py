@@ -33,8 +33,7 @@ def select_product():
     contextfile = os.environ['PRODUCT_CONTEXT_FILENAME']
     equationfile = os.environ['PRODUCT_EQUATION_FILENAME']
 
-
-    #bind context and compose features
+    # bind context and compose features
     context.bind_context(contextfile)
     get_composer().select_equation(equationfile)
 
@@ -50,13 +49,10 @@ def select_product():
     # force import of settings and urls
     # better fail during initialization than on the first request
     from django.conf import settings
-    from django.core.urlresolvers import get_resolver
+    from django.urls import get_resolver
     # eager creation of URLResolver
     get_resolver(None)
-
-    # make sure overextends tag is registered
     from django.template.loader import get_template
-    from overextends import models
 
 
 def get_wsgi_application():
