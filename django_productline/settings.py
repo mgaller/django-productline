@@ -79,7 +79,7 @@ ALLOWED_HOSTS = ['*']
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,7 +133,7 @@ DJANGO_TEMPLATE_LOADERS = [
 ]
 
 
-DJANGO_TEMPLATE_BUILTINS = ['overextends.templatetags.overextends_tags']
+DJANGO_TEMPLATE_BUILTINS = []
 
 DJANGO_TEMPLATE_BACKEND = 'django.template.backends.django.DjangoTemplates'
 
@@ -144,7 +144,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'overextends',
     'django_productline'
 ]
 

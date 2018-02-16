@@ -10,11 +10,11 @@ Basically, product generation is a two step process (focusing on the Python side
     digraph foo {
         graph [bgcolor="#F8F8F8"];
         node [fontsize=10, shape=box3d];
-        
+
         "Product Context" [shape=note];
         "Feature Equation" [shape=note];
         "Django web application" [shape=ellipse];
-        
+
         "Product Context" -> "Context Binding";
         "Context Binding" -> "Feature Composition";
         "Feature Equation" -> "Feature Composition";
@@ -55,87 +55,6 @@ It allows introductions of new structures and refinements of existing ones.
 For some use cases in the context of ``django-productline``, see :ref:`refinements_by_example`.
 
 Also, see the `featuremonkey documentation <http://featuremonkey.readthedocs.org>`_.
-
-
-********************
-Template composition
-********************
-
-You can use `django-overextends <https://github.com/stephenmcd/django-overextends>`_ for feature oriented template
-development. It is automatically installed as a dependency of ``django-productline``.
-
-By default, Django uses the `app directories template loader <https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.app_directories.Loader>`_
-to locate templates. It searches the ``templates`` folder of each app in the order that the apps are specified in ``INSTALLED_APPS``.
-The loader picks the first template with matching name.
-
-Conceptually, this is a form of feature oriented composer with file level replacements:
-
-- apps represent features
-- ``INSTALLED_APPS`` defines the feature selection and their composition order
-
-
-On top of that, ``django-overextends`` provides *overextension* --- template block level refinements.
-
-
-
-Example
-=======
-
-Consider, we have a template called ``mytemplate.html`` in the template directory
-of a django app called ``myfeature``::
-
-    myfeature/
-        templates/
-            mytemplate.html
-            ...
-        ...
-
-
-Suppose ``mytemplate.html`` looks like this::
-
-    <html>
-        <head>
-            <title>{% block title %}Hello{% endblock %}</title>
-        </head>
-        <body>
-            {% block body %}
-            <h1>Hello</h1>
-            {% endblock %}
-        </body>
-    </html>
-
-Django templates already provide blocks, that are used for `template inheritance
-<https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance>`_
-
-``django-overextends`` provides template superimposition using the ``overextends`` tag:
-To refine ``mytemplate.html``, all we need to do is to create another template with that name in
-a django app that is placed before ``myfeature`` in ``INSTALLED_APPS``::
-
-    {% overextends "mytemplate.html" %}
-
-    {% block title %}Replacement{% endblock %}
-
-    {% block body %}
-    {{ block.super }}
-    Refinements are also possible!
-    {% endblock %}
-
-
-Block tags are used to annotate FST-Nodes. Since blocks can be nested, we
-can build feature structure trees. Nodes with the same name are superimposed, when the template
-is rendered. ``{{ block.super }}`` provides access to the original implementation.
-
-Rendering the above example, would result roughly in the following HTML document::
-
-    <html>
-        <head>
-            <title>Replacement</title>
-        </head>
-        <body>
-            <h1>Hello</h1>
-            Refinements are also possible!
-        </body>
-    </html>
 
 
 **********************

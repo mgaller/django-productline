@@ -89,7 +89,6 @@ To be able to compose the required artefacts for a product, django-productline m
   - for templates(``django.template.loaders.app_directories.Loader``)
   - and static files (``django.contrib.staticfiles.finders.AppDirectoriesFinder``)
 
-- Templates are refined using `django-overextends <http://github.com/stephenmcd/django-overextends>`_
 - Javascript can be composed using `featuremonkey.js <http://github.com/henzk/featuremonkey.js>`_
 - CSS is composable by simple concatenation.
 
