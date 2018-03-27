@@ -202,20 +202,21 @@ def export_data_dir(target_path):
     from django_productline import utils
     from django.conf import settings
 
-    utils.zipdir(settings.PRODUCT_CONTEXT.DATA_DIR, target_path, wrapdir='__data__')
+    utils.tardir(settings.PRODUCT_CONTEXT.DATA_DIR, target_path, wrapdir='__data__')
     print('... wrote {target_path}'.format(target_path=target_path))
     return target_path
 
 
 @tasks.register
 @tasks.requires_product_environment
-def import_data_dir(target_zip):
+def import_data_dir(target_archive):
     """
     Imports the data specified by param <target_zip>. Renames the data dir if it already exists and
     unpacks the zip sub dir __data__ directly within the current active product.
-    :param target_zip: string path to the zip file.
+    :param target_archive: string path to the zip file.
     """
     from django_productline.context import PRODUCT_CONTEXT
+    import tarfile
 
     new_data_dir = '{data_dir}_before_import_{ts}'.format(
         data_dir=PRODUCT_CONTEXT.DATA_DIR,
@@ -226,12 +227,9 @@ def import_data_dir(target_zip):
         # rename an existing data dir if it exists
         tasks.mv_data_dir(new_data_dir)
 
-    z = zipfile.ZipFile(target_zip)
+    with tarfile.open(target_archive, 'r') as tar:
+        tar.extractall(path=PRODUCT_CONTEXT.PRODUCT_DIR)
 
-    def filter_func(x):
-        return x.startswith('__data__/')
-
-    z.extractall(os.path.dirname(PRODUCT_CONTEXT.DATA_DIR), filter(filter_func, z.namelist()))
 
 
 @tasks.register_helper

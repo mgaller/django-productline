@@ -21,10 +21,13 @@ def create_or_append_to_zip(file_handle, zip_path, arc_name=None):
 
 def zipdir(src_path, target_path, wrapdir=''):
     """
-    Zips the pat
+    Zips the path
     :param wrapdir: wrap all contents in an additional dir
     :return:
     """
+
+    # TODO: DEPRECATED remove
+
     zipf = zipfile.ZipFile(target_path, 'w', zipfile.ZIP_DEFLATED)
 
     for root, dirs, files in os.walk(src_path):
@@ -38,6 +41,22 @@ def zipdir(src_path, target_path, wrapdir=''):
                 zipf.write(path, os.path.join(wrapdir, rel_path))
 
     zipf.close()
+
+
+def tardir(src_path, target_path, wrapdir):
+    """
+    Tars the path
+    :param wrapdir: wrap all contents in an additional dir
+    :return:
+    """
+    import tarfile
+
+    with tarfile.open(target_path, 'w') as tar:
+        tar.add(src_path, arcname=wrapdir, exclude=lambda filename:filename == 'generated_static')
+
+    with tarfile.open(target_path, 'r') as tar:
+        tar.extractall()
+
 
 
 def compare_version(version1, version2):
