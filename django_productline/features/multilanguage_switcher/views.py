@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.core.urlresolvers import translate_url
+from django.urls import translate_url
 from django.http import HttpResponseRedirect
 from django.utils import translation
 from django.utils.translation import check_for_language
