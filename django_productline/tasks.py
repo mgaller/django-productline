@@ -227,7 +227,8 @@ def import_data_dir(target_archive):
         tasks.mv_data_dir(new_data_dir)
 
     with tarfile.open(target_archive, 'r') as tar:
-        tar.extractall(path=PRODUCT_CONTEXT.PRODUCT_DIR)
+        extra_to_dir = os.path.abspath(os.path.join(PRODUCT_CONTEXT.DATA_DIR, '..'))
+        tar.extractall(path=extra_to_dir)
 
 
 
