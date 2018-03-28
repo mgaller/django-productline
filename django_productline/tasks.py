@@ -201,7 +201,6 @@ def export_data_dir(target_path):
     """
     from django_productline import utils
     from django.conf import settings
-
     utils.tardir(settings.PRODUCT_CONTEXT.DATA_DIR, target_path, wrapdir='__data__')
     print('... wrote {target_path}'.format(target_path=target_path))
     return target_path
