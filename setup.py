@@ -36,7 +36,7 @@ setup(
     install_requires=[
         'Django>=2.0.0',
         'decorator',
-        'featuremonkey>0.3.1',
+        'featuremonkey>=0.2.2',
         'ape>=0.4.0',
     ],
 )
