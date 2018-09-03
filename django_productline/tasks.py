@@ -129,7 +129,6 @@ def deploy():
     :return:
     """
     print('... processing deploy tasks')
-    tasks.djpl_compilemessages()
 
 
 @tasks.register
